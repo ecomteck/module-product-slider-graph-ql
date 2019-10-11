@@ -1,0 +1,52 @@
+# Copyright © Ecomteck (ecomteck@gmail.com). All rights reserved.
+# Please visit Ecomteck.com for license details (https://www.ecomteck.com/LICENSE.txt).
+
+type Query {
+    productSlider(
+        id: Int @doc(description: "Id of the slider")
+    ): SliderInterFace @resolver(class: "\\Ecomteck\\ProductSliderGraphQl\\Model\\Resolver\\Slider") @doc(description: "The product slider query returns information about a slider")
+    productSliders(
+        filter: SliderFilterInput @doc(description: "Identifies which slider attributes to search for and return."),
+        pageSize: Int = 5 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ):ProductSliders
+    @resolver(class: "Ecomteck\\ProductSliderGraphQl\\Model\\Resolver\\Sliders") @doc(description: "The sliders query searches for sliders that match the criteria specified in the search and filter attributes")
+}
+
+type SliderInterFace @doc(description: "product slider defines all slider information") {
+    slider_id: Int @doc(description: "Id of the slider")
+    name: String @doc(description: "Slider name")
+    status: Int @doc(description: "Slider status")
+    title: String @doc(description: "Slider title")
+    description: String @doc(description: "Slider description")
+    store_ids: String @doc(description: "Slider store ids")
+    customer_group_ids: String @doc(description: "Customer group ids")
+    limit_number: Int @doc(description: "Limit number")
+    location: String @doc(description: "location")
+    time_cache: String @doc(description: "time cache")
+    from_date: String @doc(description: "from date")
+    to_date: String @doc(description: "to date")
+    product_type: String @doc(description: "product type")
+    categories_ids: String @doc(description: "category ids")
+    product_ids: String @doc(description: "product ids")
+    display_additional: String @doc(description: "display additional")
+    is_responsive: String @doc(description: "is responsive")
+    responsive_items: String @doc(description: "responsive items")
+    created_at: String @doc(description: "created at")
+    updated_at: String @doc(description: "updated at")
+}
+
+input SliderFilterInput @doc(description: "") {
+    slider_id: FilterTypeInput @doc(description: "")
+    name: FilterTypeInput @doc(description: "")
+    title: FilterTypeInput @doc(description: "")
+    status: FilterTypeInput @doc(description: "")
+    store_ids: FilterTypeInput @doc(description: "")
+    product_type: FilterTypeInput @doc(description: "")
+    display_additional: FilterTypeInput @doc(description: "")
+}
+
+type ProductSliders @doc(description: "The Sliders object is the top-level object returned in a slider search") {
+    total_count:  Int @doc(description: "The number of sliders returned")
+    items: [SliderInterFace] @doc(description: "An array of sliders that match the specified search criteria")
+}
